@@ -19,3 +19,285 @@ AttributeError: 'NoneType' object has no attribute 'text'
 2020-02-07 02:35:33,212 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
 2020-02-07 02:49:23,069 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
 2020-02-07 11:58:33,690 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-07 19:10:19,868 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 20:59:26,205 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:01:21,577 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:01:33,425 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:02:20,857 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:02:43,329 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:03:43,401 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:03:45,009 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:04:38,490 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:04:41,185 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:05:15,458 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:05:16,721 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:05:35,531 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 62, in storing_data
+    final_dict = process_text(relevant_section,final_dict)
+  File "prototype.py", line 45, in process_text
+    list_of_tags.append(message_content[each_entity['offset'],each_entity['length']])
+TypeError: string indices must be integers
+2020-02-08 21:06:39,279 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:07:44,410 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:07:57,906 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:09:14,818 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:09:15,858 - telegram.ext.updater - WARNING - Exiting immediately!
+2020-02-08 21:11:48,880 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 66, in storing_data
+    final_dict = process_text(relevant_section,final_dict)
+  File "prototype.py", line 49, in process_text
+    list_of_tags.append(message_content[each_entity['offset'],each_entity['length']])
+TypeError: string indices must be integers
+2020-02-08 21:12:20,607 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:13:27,559 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:14:39,046 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:17:01,487 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:18:00,296 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:18:11,403 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 62, in storing_data
+    final_dict['chat'] = {key,value in relevant_section['chat'].items()}
+NameError: name 'key' is not defined
+2020-02-08 21:19:02,007 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:19:07,454 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 62, in storing_data
+    final_dict['chat'] = {keys:values for keys,values in relevant_section['chat'].items()}
+AttributeError: 'Chat' object has no attribute 'items'
+2020-02-08 21:20:09,440 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:20:32,262 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 62, in storing_data
+    final_dict['chat'] = {keys:values for keys,values in relevant_section['chat']}
+  File "prototype.py", line 62, in <dictcomp>
+    final_dict['chat'] = {keys:values for keys,values in relevant_section['chat']}
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/base.py", line 39, in __getitem__
+    return self.__dict__[item]
+KeyError: 0
+2020-02-08 21:38:08,952 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:39:02,560 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 63, in storing_data
+    final_dict['chat'] = dict(final_dict['chat'])
+KeyError: 'chat'
+2020-02-08 21:39:26,504 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:39:55,188 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 63, in storing_data
+    final_dict['chat'] = dict(relevant_section['chat'])
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/base.py", line 39, in __getitem__
+    return self.__dict__[item]
+KeyError: 0
+2020-02-08 21:40:14,503 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:41:54,921 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:42:46,233 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 21:44:43,703 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 23:50:52,672 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 55, in storing_data
+    content_type = determine_type(relevant_section)
+  File "prototype.py", line 26, in determine_type
+    all_keys = message_json.keys()
+AttributeError: 'Message' object has no attribute 'keys'
+2020-02-08 23:51:29,798 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 23:51:42,333 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 55, in storing_data
+    content_type = determine_type(relevant_section)
+  File "prototype.py", line 26, in determine_type
+    all_keys = dict(message_json).keys()
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2020-02-08 23:52:28,516 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 23:52:39,130 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 56, in storing_data
+    content_type = determine_type(relevant_section)
+  File "prototype.py", line 27, in determine_type
+    all_keys = dict(message_json).keys()
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2020-02-08 23:56:16,516 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 23:56:41,022 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 52, in storing_data
+    json_version = json.loads(update)
+  File "/usr/lib/python3.6/json/__init__.py", line 348, in loads
+    'not {!r}'.format(s.__class__.__name__))
+TypeError: the JSON object must be str, bytes or bytearray, not 'Update'
+2020-02-08 23:57:16,156 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-08 23:57:28,408 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 52, in storing_data
+    json_version = json.loads(update.decode('utf-8'))
+AttributeError: 'Update' object has no attribute 'decode'
+2020-02-09 00:00:01,293 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:00:06,549 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 52, in storing_data
+    json_version = json.loads(str(update))
+  File "/usr/lib/python3.6/json/__init__.py", line 354, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.6/json/decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.6/json/decoder.py", line 355, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2020-02-09 00:02:15,085 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:02:26,850 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 51, in storing_data
+    relevant_section = json_version.effective_message
+NameError: name 'json_version' is not defined
+2020-02-09 00:02:41,293 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:02:53,525 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 55, in storing_data
+    content_type = determine_type(relevant_section)
+  File "prototype.py", line 27, in determine_type
+    if('text' in all_keys):
+NameError: name 'all_keys' is not defined
+2020-02-09 00:03:19,138 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 55, in storing_data
+    content_type = determine_type(relevant_section)
+  File "prototype.py", line 27, in determine_type
+    if('text' in all_keys):
+NameError: name 'all_keys' is not defined
+2020-02-09 00:03:54,614 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:05:49,958 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:08:12,004 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:08:17,892 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 53, in storing_data
+    final_dict['chat'] = {'id':relevant_section.chat.id,'type':relevant_section.chat.type,'first_name':relevant_section.chat.chat.first_name,'last_name':relevant_section.chat.last_name}
+AttributeError: 'Chat' object has no attribute 'chat'
+2020-02-09 00:08:50,966 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:21:42,619 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:28:55,869 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:29:14,726 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 50, in storing_data
+    relevant_section = dict(update.message)
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2020-02-09 00:29:38,901 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:29:49,633 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 50, in storing_data
+    relevant_section = dict(update['message'])
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2020-02-09 00:31:21,428 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:31:29,137 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 50, in storing_data
+    relevant_section = dict(update.message)
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2020-02-09 00:31:58,701 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:32:03,338 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 53, in storing_data
+    final_dict['from'] = {'id':relevant_section.from_user.id,'type':relevant_section.from_user.type,'first_name':relevant_section.from_user.first_name,'last_name':relevant_section.from_user.last_name}
+AttributeError: 'User' object has no attribute 'type'
+2020-02-09 00:33:20,444 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:38:54,990 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:41:28,719 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:42:53,069 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:47:20,254 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:47:58,939 - telegram.ext.dispatcher - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/dispatcher.py", line 372, in process_update
+    handler.handle_update(update, self, check, context)
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/ext/handler.py", line 117, in handle_update
+    return self.callback(update, context)
+  File "prototype.py", line 58, in storing_data
+    final_dict = process_text(relevant_section,final_dict)
+  File "prototype.py", line 45, in process_text
+    final_dict['text'] = re.sub(r'#\w+','',message_content)
+NameError: name 're' is not defined
+2020-02-09 00:48:17,959 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:51:23,999 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-09 00:56:32,808 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
