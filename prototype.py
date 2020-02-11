@@ -113,7 +113,7 @@ def edit_message(message_json,final_dict,content_type,context):
 	tags = []
 	#check content type before processing the data
 	if(content_type=='text'):
-		final_dict = process_text(message_json,final_dict,message_json['text'],True)
+		final_dict = process_text(message_json,final_dict,message_json['text'],False)
 	else:
 		final_dict = process_media(message_json,final_dict,content_type,context,False)
 	
@@ -155,7 +155,7 @@ def process_text(message_json, final_dict,message_content,caption_flag):
 			final_dict['caption'] = cleaned_message.strip() #removing leading and trailing spaces
 		else:
 			final_dict['text'] = cleaned_message.strip()
-
+	print(final_dict)
 	return final_dict
 
 def upload_file(s3,file_name,acl="public-read"):
@@ -165,7 +165,7 @@ def upload_file(s3,file_name,acl="public-read"):
 		s3.upload_fileobj(data,bucket_name,file_name,ExtraArgs={"ACL": acl,"ContentType": file_name.split(".")[-1]})
 	
 	#just for testing
-	# BASE_URL = "http://archive-telegram-bot.tattle.co.in.s3.amazonaws.com/"
+	# BASE_URL = "http://archive-telegram-bot.tattle.co.in.s3.amazonaws.com/645.jpeg"
 	# print("{}{}".format(BASE_URL, file_name))
 
 def process_media(message_json,final_dict,content_type,context,creation_flag):
@@ -247,8 +247,8 @@ def restart(update, context):
 	Thread(target=stop_and_restart).start()
 
 #initialises database connection
-
-client = MongoClient("mongodb+srv://thenerdyouknow:"+os.environ.get("DB_PASSWORD")+"@cluster0-dxaod.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient()
+# client = MongoClient("mongodb+srv://thenerdyouknow:"+os.environ.get("DB_PASSWORD")+"@cluster0-dxaod.mongodb.net/test?retryWrites=true&w=majority")
 db = client.telegram_bot
 
 updater = Updater(token=TOKEN, use_context=True, workers=32)
@@ -261,10 +261,10 @@ dispatcher.add_handler(restart_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(storing_data_handler)
 
-updater.start_webhook(listen="0.0.0.0",
-                      port=PORT,
-                      url_path=TOKEN)
+# updater.start_webhook(listen="0.0.0.0",
+#                       port=PORT,
+#                       url_path=TOKEN)
 
-updater.bot.set_webhook("https://tattle-telegram-bot.herokuapp.com/" + TOKEN)
-# updater.start_polling()
+# updater.bot.set_webhook("https://tattle-telegram-bot.herokuapp.com/" + TOKEN)
+updater.start_polling()
 updater.idle()

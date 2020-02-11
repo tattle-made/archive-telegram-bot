@@ -77,3 +77,111 @@ KeyError: 'endpoint_resolver'
 2020-02-11 04:52:37,043 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
 2020-02-11 05:07:04,887 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
 2020-02-11 05:08:34,132 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-11 13:02:30,814 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-11 13:13:28,227 - telegram.utils.promise - ERROR - An uncaught error was raised while running the promise
+Traceback (most recent call last):
+  File "prototype.py", line 103, in reply_to_messages
+    combine_tags(message_json,current_document,all_tags)
+  File "prototype.py", line 71, in combine_tags
+    new_tags = list(set(current_document['tags'] + all_tags))
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/utils/promise.py", line 57, in run
+    self._result = self.pooled_function(*self.args, **self.kwargs)
+  File "prototype.py", line 227, in storing_data
+    reply_to_messages(relevant_section,False)
+  File "prototype.py", line 109, in reply_to_messages
+    error_message()
+TypeError: error_message() missing 1 required positional argument: 'message_json'
+2020-02-11 13:14:46,377 - telegram.utils.promise - ERROR - An uncaught error was raised while running the promise
+Traceback (most recent call last):
+  File "prototype.py", line 103, in reply_to_messages
+    combine_tags(message_json,current_document,all_tags)
+  File "prototype.py", line 71, in combine_tags
+    new_tags = list(set(current_document['tags'] + all_tags))
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/utils/promise.py", line 57, in run
+    self._result = self.pooled_function(*self.args, **self.kwargs)
+  File "prototype.py", line 227, in storing_data
+    reply_to_messages(relevant_section,False)
+  File "prototype.py", line 109, in reply_to_messages
+    error_message()
+TypeError: error_message() missing 1 required positional argument: 'message_json'
+2020-02-11 13:18:45,109 - telegram.utils.promise - ERROR - An uncaught error was raised while running the promise
+Traceback (most recent call last):
+  File "prototype.py", line 103, in reply_to_messages
+    combine_tags(message_json,current_document,all_tags)
+  File "prototype.py", line 71, in combine_tags
+    new_tags = list(set(current_document['tags'] + all_tags))
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/utils/promise.py", line 57, in run
+    self._result = self.pooled_function(*self.args, **self.kwargs)
+  File "prototype.py", line 227, in storing_data
+    reply_to_messages(relevant_section,False)
+  File "prototype.py", line 109, in reply_to_messages
+    error_message()
+TypeError: error_message() missing 1 required positional argument: 'message_json'
+2020-02-11 13:26:03,061 - telegram.utils.promise - ERROR - An uncaught error was raised while running the promise
+Traceback (most recent call last):
+  File "prototype.py", line 188, in process_media
+    new_file = context.bot.get_file(file_id)
+UnboundLocalError: local variable 'file_id' referenced before assignment
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/utils/promise.py", line 57, in run
+    self._result = self.pooled_function(*self.args, **self.kwargs)
+  File "prototype.py", line 235, in storing_data
+    final_dict = process_media(relevant_section,final_dict,content_type,context,True)
+  File "prototype.py", line 195, in process_media
+    logging.debug("The file_name when the error happened is: {}".format(file_name))
+UnboundLocalError: local variable 'file_name' referenced before assignment
+2020-02-11 13:26:40,158 - telegram.utils.promise - ERROR - An uncaught error was raised while running the promise
+Traceback (most recent call last):
+  File "prototype.py", line 188, in process_media
+    new_file = context.bot.get_file(file_id)
+UnboundLocalError: local variable 'file_id' referenced before assignment
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/utils/promise.py", line 57, in run
+    self._result = self.pooled_function(*self.args, **self.kwargs)
+  File "prototype.py", line 235, in storing_data
+    final_dict = process_media(relevant_section,final_dict,content_type,context,True)
+  File "prototype.py", line 195, in process_media
+    logging.debug("The file_name when the error happened is: {}".format(file_name))
+UnboundLocalError: local variable 'file_name' referenced before assignment
+2020-02-11 13:47:30,962 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-11 13:48:59,352 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
+2020-02-11 13:56:16,839 - telegram.utils.promise - ERROR - An uncaught error was raised while running the promise
+Traceback (most recent call last):
+  File "prototype.py", line 103, in reply_to_messages
+    combine_tags(message_json,current_document,all_tags)
+  File "prototype.py", line 71, in combine_tags
+    new_tags = list(set(current_document['tags'] + all_tags))
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ashoka/Documents/tattle_bot/venv/lib/python3.6/site-packages/telegram/utils/promise.py", line 57, in run
+    self._result = self.pooled_function(*self.args, **self.kwargs)
+  File "prototype.py", line 227, in storing_data
+    reply_to_messages(relevant_section,False)
+  File "prototype.py", line 109, in reply_to_messages
+    error_message()
+TypeError: error_message() missing 1 required positional argument: 'message_json'
+2020-02-11 14:03:07,777 - telegram.ext.updater - INFO - Received signal 2 (SIGINT), stopping...
