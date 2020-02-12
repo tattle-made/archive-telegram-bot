@@ -265,7 +265,7 @@ updater.start_webhook(listen="0.0.0.0",
 	port=PORT,
 	url_path=TOKEN)
 
-# updater.bot.set_webhook("https://tattle-telegram-bot.herokuapp.com/" + TOKEN)
+updater.bot.set_webhook("https://services-dev.tattle.co.in/telegram-bot" + TOKEN)
 # updater.start_polling()
 # updater.idle()
 
