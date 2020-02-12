@@ -1,4 +1,4 @@
-name: update-public-registry
+name: update-public-registry-stable
 
 on: 
   push:
@@ -20,4 +20,4 @@ jobs:
         username: tattletech
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: tattletech/archive-telegram-bot
-        tag: latest
+        tag: stable
