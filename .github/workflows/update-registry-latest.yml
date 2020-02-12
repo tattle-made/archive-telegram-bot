@@ -1,4 +1,4 @@
-name: update-public-registry
+name: update-public-registry-latest
 
 on: 
   push:
