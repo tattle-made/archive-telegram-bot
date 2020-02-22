@@ -16,6 +16,8 @@ from pymongo import MongoClient
 #loads all environment variables
 load_dotenv()
 
+s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
+
 TOKEN = os.environ.get('ACCESS_TOKEN')
 PORT = int(os.environ.get('PORT', '8443'))
 
@@ -66,15 +68,10 @@ def entity_extraction(all_entities, message_content):
 	else:
 		return None 
 
-def combine_tags(message_json,current_document,all_tags):
-	#combines the old tags and new tags in case replies to messages that had tags in them
-	new_tags = list(set(current_document['tags'] + all_tags))
-	update_document({'message_id': message_json.reply_to_message.message_id},{"$set": {"tags": new_tags}},'messages')
-
 def new_tags(message_json,current_document,all_tags):
 	#adds or replaces tags in messages that had no tags or in case of edits
 	new_tags = all_tags
-	update_document({'message_id': message_json.reply_to_message.message_id},{"$set": {"tags": new_tags}},'messages')
+	update_document({'message_id': message_json.reply_to_message.message_id},{"$set": {"reply_tags": new_tags}},'messages')
 
 def error_message(message_json):
 	#standard error message
@@ -88,21 +85,18 @@ def reply_to_messages(message_json,edit_flag):
 		#first finds the document that the reply is being done to
 		current_document = find_document({'message_id': message_json.reply_to_message.message_id},'messages')
 		#if the edit flag is true, it means that the message that is replying to other message is being edited
-		if(edit_flag):
-			try:
-				#in which case, we just replace the previous tags with the new, edited tags as the replies have to be just entities
-				new_tags(message_json,current_document,all_tags)
-				return
-			except:
-				#otherwise, through an error message and log the exception
-				error_message()
-				raise
+		# if(edit_flag):
+		# 	try:
+		# 		#in which case, we just replace the previous tags with the new, edited tags as the replies have to be just entities
+		# 		new_tags(message_json,current_document,all_tags)
+		# 		return
+		# 	except:
+		# 		#otherwise, through an error message and log the exception
+		# 		error_message()
+		# 		raise
 
 		try:
-			#in case of regular replies, just combine tags if message that is being replied to also has tags
-			combine_tags(message_json,current_document,all_tags)
-		except KeyError:
-			#if not, then add the tags from the replies
+			#add reply tags with a new key called reply_tags
 			new_tags(message_json,current_document,all_tags)
 		except:
 			#or, throw an error message and log
@@ -113,10 +107,17 @@ def edit_message(message_json,final_dict,content_type,context):
 	tags = []
 	#check content type before processing the data
 	if(content_type=='text'):
+		#In case of edits, we need to replace file on S3. Replacing happens automatically as long as file name is same.
+		file_name = str(message_json.message_id) + '.txt'
+		with open(file_name,'w') as open_file:
+			open_file.write(message_json['text'])
+		upload_file(s3,file_name)
+	
 		final_dict = process_text(message_json,final_dict,message_json['text'],False)
 	else:
 		final_dict = process_media(message_json,final_dict,content_type,context,False)
-	
+
+
 	#in case message is being edited, we first find the document being edited
 	current_document = find_document({'message_id':message_json.message_id},'messages')
 	
@@ -155,7 +156,6 @@ def process_text(message_json, final_dict,message_content,caption_flag):
 			final_dict['caption'] = cleaned_message.strip() #removing leading and trailing spaces
 		else:
 			final_dict['text'] = cleaned_message.strip()
-	print(final_dict)
 	return final_dict
 
 def upload_file(s3,file_name,acl="public-read"):
@@ -188,7 +188,6 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 			new_file = context.bot.get_file(file_id)
 			new_file.download(file_name) #downloads the file
 			final_dict['file_name'] = file_name 
-			s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
 			upload_file(s3,file_name) #uploads to S3
 			os.remove(file_name) #removes it from local runtime
 		except:
@@ -228,6 +227,12 @@ def storing_data(update, context):
 		return
 
 	if(content_type == 'text'):
+		#creates file with message ID, then writes the text into the file and uploads it to S3
+		file_name = str(relevant_section.message_id) + '.txt'
+		with open(file_name,'w') as open_file:
+			open_file.write(relevant_section['text'])
+		upload_file(s3,file_name)
+
 		#if new text message, process it and then insert it in the database
 		final_dict = process_text(relevant_section,final_dict,relevant_section['text'],False)
 		insert_document(final_dict,'messages')
