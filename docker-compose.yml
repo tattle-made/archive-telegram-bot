@@ -1,0 +1,13 @@
+version: '3.4'
+
+services: 
+    telegram-bot:
+        build: .
+        container_name: 'telegram-bot'
+        environment: 
+            - ACCESS_TOKEN=$ACCESS_TOKEN
+            - PORT=$PORT
+            - S3_ACCESS_KEY=$S3_ACCESS_KEY
+            - S3_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY
+            - BUCKET_NAME=$BUCKET_NAME
+            - DB_PASSWORD=$DB_PASSWORD

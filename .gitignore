@@ -1,2 +1,7 @@
 venv/
 .env
+lib/
+bin/
+include/
+.Python
+telegram_bot_log
