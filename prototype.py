@@ -18,10 +18,11 @@ load_dotenv()
 
 s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
 
+
 TOKEN = os.environ.get('ACCESS_TOKEN')
 PORT = int(os.environ.get('PORT', '8443'))
 
-logging.basicConfig(filename='telegram_bot_log',filemode='a',format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(filename='telegram_bot_log.log',filemode='a',format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # Calls for Database modification and reads start
 def insert_document(document,required_collection):
@@ -50,6 +51,8 @@ def determine_type(message_json):
 		type_of_content = 'photo'
 	elif(message_json.video):
 		type_of_content = 'video'
+	elif(message_json.document):
+		type_of_content = 'document'
 	return type_of_content
 
 def entity_extraction(all_entities, message_content):
@@ -84,16 +87,6 @@ def reply_to_messages(message_json,edit_flag):
 	if(all_tags is not None):
 		#first finds the document that the reply is being done to
 		current_document = find_document({'message_id': message_json.reply_to_message.message_id},'messages')
-		#if the edit flag is true, it means that the message that is replying to other message is being edited
-		# if(edit_flag):
-		# 	try:
-		# 		#in which case, we just replace the previous tags with the new, edited tags as the replies have to be just entities
-		# 		new_tags(message_json,current_document,all_tags)
-		# 		return
-		# 	except:
-		# 		#otherwise, through an error message and log the exception
-		# 		error_message()
-		# 		raise
 
 		try:
 			#add reply tags with a new key called reply_tags
@@ -112,6 +105,7 @@ def edit_message(message_json,final_dict,content_type,context):
 		with open(file_name,'w') as open_file:
 			open_file.write(message_json['text'])
 		upload_file(s3,file_name)
+		os.remove(file_name)
 	
 		final_dict = process_text(message_json,final_dict,message_json['text'],False)
 	else:
@@ -127,6 +121,14 @@ def edit_message(message_json,final_dict,content_type,context):
 		tags = current_document['tags']
 	except KeyError:
 		tags = None
+
+	try:
+		reply_tags = current_document['reply_tags']
+	except KeyError:
+		reply_tags = None
+
+	if(reply_tags is not None):
+		final_dict['reply_tags'] = reply_tags
 	#add tags to final dict for new, edited document
 	if(tags is not None):
 		final_dict['tags'] = tags
@@ -165,7 +167,7 @@ def upload_file(s3,file_name,acl="public-read"):
 		s3.upload_fileobj(data,bucket_name,file_name,ExtraArgs={"ACL": acl,"ContentType": file_name.split(".")[-1]})
 	
 	#just for testing
-	# BASE_URL = "http://archive-telegram-bot.tattle.co.in.s3.amazonaws.com/645.jpeg"
+	# BASE_URL = "http://archive-telegram-bot.tattle.co.in.s3.amazonaws.com/"
 	# print("{}{}".format(BASE_URL, file_name))
 
 def process_media(message_json,final_dict,content_type,context,creation_flag):
@@ -232,6 +234,7 @@ def storing_data(update, context):
 		with open(file_name,'w') as open_file:
 			open_file.write(relevant_section['text'])
 		upload_file(s3,file_name)
+		os.remove(file_name)
 
 		#if new text message, process it and then insert it in the database
 		final_dict = process_text(relevant_section,final_dict,relevant_section['text'],False)
@@ -266,12 +269,12 @@ dispatcher.add_handler(restart_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(storing_data_handler)
 
-updater.start_webhook(listen="0.0.0.0",
-	port=PORT,
-	url_path=TOKEN)
+# updater.start_webhook(listen="0.0.0.0",
+# 	port=PORT,
+# 	url_path=TOKEN)
 
-updater.bot.set_webhook("https://services-dev.tattle.co.in/telegram-bot" + TOKEN)
-# updater.start_polling()
-# updater.idle()
+# updater.bot.set_webhook("https://services-dev.tattle.co.in/telegram-bot" + TOKEN)
+updater.start_polling()
+updater.idle()
 
 print('server starting')
