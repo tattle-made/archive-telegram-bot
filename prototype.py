@@ -282,8 +282,8 @@ def restart(update, context):
 	Thread(target=stop_and_restart).start()
 
 #initialises database connection
-client = MongoClient()
-# client = MongoClient("mongodb+srv://thenerdyouknow:"+os.environ.get("DB_PASSWORD")+"@cluster0-dxaod.mongodb.net/test?retryWrites=true&w=majority")
+# client = MongoClient()
+client = MongoClient("mongodb+srv://"+os.environ.get("TGM_DB_PASSWORD")+":"+os.environ.get("TGM_DB_PASSWORD")+"@cluster0-dxaod.mongodb.net/test?retryWrites=true&w=majority")
 db = client.telegram_bot
 
 updater = Updater(token=TOKEN, use_context=True, workers=32)
@@ -300,8 +300,8 @@ dispatcher.add_handler(storing_data_handler)
 # 	port=PORT,
 # 	url_path=TOKEN)
 
-# updater.bot.set_webhook("https://services-dev.tattle.co.in/telegram-bot" + TOKEN)
-updater.start_polling()
-updater.idle()
+updater.bot.set_webhook("https://services-server-dev.tattle.co.in/telegram-bot" + TOKEN)
+# updater.start_polling()
+# updater.idle()
 
 print('server starting')
