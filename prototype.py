@@ -170,6 +170,22 @@ def upload_file(s3,file_name,acl="public-read"):
 	# BASE_URL = "http://archive-telegram-bot.tattle.co.in.s3.amazonaws.com/"
 	# print("{}{}".format(BASE_URL, file_name))
 
+def make_post_request(dict_to_post):
+	API_BASE_URL = "https://archive-server-dev.tattle.co.in"
+	access_token = os.environ.get('ARCHIVE_TOKEN')
+	url_to_post_to = API_BASE_URL+"/api/posts"
+
+	payload = json.dumps(dict_to_post)
+	headers = {
+		'token': access_token,
+		'Content-Type': "application/json",
+		'cache-control': "no-cache",
+		}
+	r = requests.post(url_to_post_to, data=payload, headers=headers)
+
+def construct_dict(file_name,file_type):
+	return {"type" : file_type,"data" : "","filename": file_name,"userId" : 169}
+
 def process_media(message_json,final_dict,content_type,context,creation_flag):
 	
 	#check if content type is photo, and constructs dict and file_name appropriately
@@ -177,6 +193,7 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 		final_dict['photo'] = [{'file_id':each_photo.file_id,'width':each_photo.width,'height':each_photo.height,'file_size':each_photo.file_size} for each_photo in message_json.photo]
 		file_id = message_json.photo[-1].file_id
 		file_name = str(message_json.message_id)+'.jpeg'
+		post_request_type = 'image'
 
 	#same with video as above
 	elif(content_type=='video'):
@@ -184,6 +201,7 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 		file_id = message_json.video.file_id
 		file_type = str(message_json.video.mime_type).split("/")[-1]
 		file_name = str(message_json.message_id)+"."+file_type
+		post_request_type = 'video'
 	#process_media is only called from two places, one of which is when message is edited. Since we don't want duplicates, we set a flag to differentiate.
 	if(creation_flag):
 		try:
@@ -192,9 +210,12 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 			final_dict['file_name'] = file_name 
 			upload_file(s3,file_name) #uploads to S3
 			os.remove(file_name) #removes it from local runtime
+
+			request_dict = construct_dict(file_name,post_request_type)
+			make_post_request(request_dict)
 		except:
-			logging.debug("The file_name when the error happened is: {}".format(file_name))
-			raise
+			logging.exception("The file_name when the error happened is: {}".format(file_name))
+			
 	#process any caption or text found
 	final_dict = process_text(message_json, final_dict, message_json.caption,True)
 	return final_dict
@@ -230,11 +251,17 @@ def storing_data(update, context):
 
 	if(content_type == 'text'):
 		#creates file with message ID, then writes the text into the file and uploads it to S3
-		file_name = str(relevant_section.message_id) + '.txt'
-		with open(file_name,'w') as open_file:
-			open_file.write(relevant_section['text'])
-		upload_file(s3,file_name)
-		os.remove(file_name)
+		try:
+			file_name = str(relevant_section.message_id) + '.txt'
+			with open(file_name,'w') as open_file:
+				open_file.write(relevant_section['text'])
+			upload_file(s3,file_name)
+			os.remove(file_name)
+
+			request_dict = construct_dict(file_name, content_type)
+			make_post_request(request_dict)
+		except:
+			logging.exception("The file_name when the error happened is: {}".format(file_name))
 
 		#if new text message, process it and then insert it in the database
 		final_dict = process_text(relevant_section,final_dict,relevant_section['text'],False)
