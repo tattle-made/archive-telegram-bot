@@ -296,9 +296,9 @@ dispatcher.add_handler(restart_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(storing_data_handler)
 
-# updater.start_webhook(listen="0.0.0.0",
-# 	port=PORT,
-# 	url_path=TOKEN)
+updater.start_webhook(listen="0.0.0.0",
+	port=PORT,
+	url_path=TOKEN)
 
 updater.bot.set_webhook("https://services-server-dev.tattle.co.in/telegram-bot" + TOKEN)
 # updater.start_polling()
