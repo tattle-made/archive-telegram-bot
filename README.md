@@ -14,3 +14,7 @@ DB_PASSWORD=
 TGM_DB_USERNAME=
 TGM_DB_PASSWORD=
 ```
+
+
+# Debug Notes
+Incoming messages are logged to stdout. they are prefixed with a timestamp of the format YYYY-MM-DD hh:mm:ss.xxxx. The timezone will be the timezone of the server it is deployed on

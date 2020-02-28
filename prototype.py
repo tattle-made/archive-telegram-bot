@@ -12,6 +12,9 @@ from telegram import InlineQueryResultArticle, InputTextMessageContent
 from telegram.ext.dispatcher import run_async
 from dotenv import load_dotenv
 from pymongo import MongoClient
+import pprint
+from logger import log, logError
+pp = pprint.PrettyPrinter(indent=4)
 
 #loads all environment variables
 load_dotenv()
@@ -221,7 +224,14 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 	return final_dict
 
 @run_async
+def storing_data_test(update, context):
+	log(update)
+
+
+@run_async
 def storing_data(update, context):
+	print(update)
+
 	final_dict = {}
 	# print(update)
 	#selects just the effective_message part
@@ -289,16 +299,16 @@ db = client.telegram_bot
 updater = Updater(token=TOKEN, use_context=True, workers=32)
 dispatcher = updater.dispatcher
 start_handler = CommandHandler('start', start)
-storing_data_handler = MessageHandler(Filters.all,storing_data)
+storing_data_handler = MessageHandler(Filters.all,storing_data_test)
 restart_handler = CommandHandler('r', restart, filters=Filters.user(username='@thenerdyouknow'))
 
 dispatcher.add_handler(restart_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(storing_data_handler)
 
-updater.start_webhook(listen="0.0.0.0",
-	port=PORT,
-	url_path=TOKEN)
+# updater.start_webhook(listen="0.0.0.0",
+# 	port=PORT,
+# 	url_path=TOKEN)
 
 # updater.bot.set_webhook("https://services-server-dev.tattle.co.in/telegram-bot" + TOKEN)
 updater.start_polling()
