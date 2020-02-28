@@ -20,6 +20,7 @@ pp = pprint.PrettyPrinter(indent=4)
 load_dotenv()
 
 log('STARTING APP')
+print(os.environ.get('TGM_DB_COLLECTION_NAME'))
 
 s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
 
@@ -225,14 +226,10 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 	final_dict = process_text(message_json, final_dict, message_json.caption,True)
 	return final_dict
 
-@run_async
-def storing_data_test(update, context):
-	log(update)
-
 
 @run_async
 def storing_data(update, context):
-	print(update)
+	log(update.effective_messagee)
 
 	final_dict = {}
 	# print(update)
@@ -244,6 +241,7 @@ def storing_data(update, context):
 	final_dict['from'] = {'id':relevant_section.from_user.id,'type':relevant_section.chat.type,'first_name':relevant_section.from_user.first_name,'last_name':relevant_section.from_user.last_name,'username':relevant_section.from_user.username,'is_bot':relevant_section.from_user.is_bot}
 	content_type = determine_type(relevant_section)
 	final_dict['content_type'] = content_type
+
 	#checks if the request is that of an edition
 	if(relevant_section.edit_date):
 		#if yes, checks if the edited message was replying to another message
@@ -262,6 +260,7 @@ def storing_data(update, context):
 		return
 
 	if(content_type == 'text'):
+		print('text message')
 		#creates file with message ID, then writes the text into the file and uploads it to S3
 		try:
 			file_name = str(relevant_section.message_id) + '.txt'
@@ -296,12 +295,12 @@ def restart(update, context):
 #initialises database connection
 # client = MongoClient()
 client = MongoClient("mongodb+srv://"+os.environ.get("TGM_DB_PASSWORD")+":"+os.environ.get("TGM_DB_PASSWORD")+"@cluster0-dxaod.mongodb.net/test?retryWrites=true&w=majority")
-db = client.telegram_bot
+db = client[os.environ.get('TGM_DB_COLLECTION_NAME')]
 
 updater = Updater(token=TOKEN, use_context=True, workers=32)
 dispatcher = updater.dispatcher
 start_handler = CommandHandler('start', start)
-storing_data_handler = MessageHandler(Filters.all,storing_data_test)
+storing_data_handler = MessageHandler(Filters.all,storing_data)
 restart_handler = CommandHandler('r', restart, filters=Filters.user(username='@thenerdyouknow'))
 
 dispatcher.add_handler(restart_handler)
