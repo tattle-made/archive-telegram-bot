@@ -19,6 +19,8 @@ pp = pprint.PrettyPrinter(indent=4)
 #loads all environment variables
 load_dotenv()
 
+log('STARTING APP')
+
 s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
 
 
@@ -306,12 +308,13 @@ dispatcher.add_handler(restart_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(storing_data_handler)
 
-# updater.start_webhook(listen="0.0.0.0",
-# 	port=PORT,
-# 	url_path=TOKEN)
+updater.start_webhook(listen="0.0.0.0",
+	port=PORT,
+	url_path=TOKEN)
 
-# updater.bot.set_webhook("https://services-server-dev.tattle.co.in/telegram-bot" + TOKEN)
-updater.start_polling()
-updater.idle()
+updater.bot.set_webhook("https://services-server-dev.tattle.co.in/tb" + TOKEN)
+# updater.start_polling()
+updater.idle()	
 
-print('server starting')
+
+log('STARTING SERVER')
