@@ -28,5 +28,5 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_MESSAGE: 'Updated Docker Registry for archive-telegram-bot:latest'
         SLACK_TITLE: 'update-registry-latest job complete'
-        SLACK_COLOR: '#E56D67'
-        SLACK_CHANNEL: notifications_rundeck
+        SLACK_COLOR: '#020637'
+        SLACK_ICON: https://tattle-media.s3.amazonaws.com/monogram-dark.svg
