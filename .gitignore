@@ -5,3 +5,4 @@ bin/
 include/
 .Python
 *.log
+__pycache__/*
