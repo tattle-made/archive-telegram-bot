@@ -20,7 +20,7 @@ pp = pprint.PrettyPrinter(indent=4)
 load_dotenv()
 
 log('STARTING APP')
-print(os.environ.get('TGM_DB_COLLECTION_NAME'))
+print(os.environ.get('TGM_DB_NAME'))
 
 s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
 
@@ -229,7 +229,7 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 
 @run_async
 def storing_data(update, context):
-	log(update.effective_messagee)
+	log(update)
 
 	final_dict = {}
 	# print(update)
@@ -260,7 +260,6 @@ def storing_data(update, context):
 		return
 
 	if(content_type == 'text'):
-		print('text message')
 		#creates file with message ID, then writes the text into the file and uploads it to S3
 		try:
 			file_name = str(relevant_section.message_id) + '.txt'
@@ -292,10 +291,12 @@ def restart(update, context):
 	update.message.reply_text('Bot is restarting...')
 	Thread(target=stop_and_restart).start()
 
-#initialises database connection
-# client = MongoClient()
-client = MongoClient("mongodb+srv://"+os.environ.get("TGM_DB_PASSWORD")+":"+os.environ.get("TGM_DB_PASSWORD")+"@cluster0-dxaod.mongodb.net/test?retryWrites=true&w=majority")
-db = client[os.environ.get('TGM_DB_COLLECTION_NAME')]
+try:
+	client = MongoClient("mongodb+srv://"+os.environ.get("TGM_DB_USERNAME")+":"+os.environ.get("TGM_DB_PASSWORD")+"@tattle-data-fkpmg.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE")
+	db = client[os.environ.get("TGM_DB_NAME")]
+except error_message:
+	print('error connecting to db')
+	print(error_message)
 
 updater = Updater(token=TOKEN, use_context=True, workers=32)
 dispatcher = updater.dispatcher
