@@ -21,3 +21,12 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: tattletech/archive-telegram-bot
         tag: latest
+
+    - name: Notify on Slack
+        uses: rtCamp/action-slack-notify@v2.0.0
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: 'Updated Docker Registry for archive-telegram-bot:latest'
+          SLACK_TITLE: 'update-registry-latest job complete'
+          SLACK_COLOR: '#E56D67'
+          SLACK_CHANNEL: notifications_rundeck
