@@ -312,7 +312,7 @@ updater.start_webhook(listen="0.0.0.0",
 	port=PORT,
 	url_path=TOKEN)
 
-updater.bot.set_webhook("https://services-server-dev.tattle.co.in/tb/" + TOKEN)
+updater.bot.set_webhook("https://services-server-dev.tattle.co.in/" + TOKEN)
 updater.start_polling()
 updater.idle()	
 
