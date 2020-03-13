@@ -167,7 +167,7 @@ def process_text(message_json, final_dict,message_content,caption_flag):
 	return final_dict
 
 def upload_file(s3,file_name,acl="public-read"):
-	bucket_name = os.environ.get('BUCKET_NAME')
+	bucket_name = os.environ.get('TGM_BUCKET_NAME')
 	#opens file, reads it, and uploads it to the S3 bucket.
 	with open(file_name, 'rb') as data:
 		s3.upload_fileobj(data,bucket_name,file_name,ExtraArgs={"ACL": acl,"ContentType": file_name.split(".")[-1]})
