@@ -177,7 +177,7 @@ def upload_file(s3,file_name,acl="public-read"):
 	# print("{}{}".format(BASE_URL, file_name))
 
 def make_post_request(dict_to_post):
-	API_BASE_URL = "https://archive-server-dev.tattle.co.in"
+	API_BASE_URL = "https://archive-server.tattle.co.in"
 	access_token = os.environ.get('ARCHIVE_TOKEN')
 	url_to_post_to = API_BASE_URL+"/api/posts"
 
@@ -312,7 +312,7 @@ updater.start_webhook(listen="0.0.0.0",
 	port=PORT,
 	url_path=TOKEN)
 
-updater.bot.set_webhook("https://services-server-dev.tattle.co.in/" + TOKEN)
+updater.bot.set_webhook("https://services-server.tattle.co.in/" + TOKEN)
 updater.start_polling()
 updater.idle()	
 
