@@ -188,6 +188,7 @@ def make_post_request(dict_to_post):
 		'cache-control': "no-cache",
 		}
 	r = requests.post(url_to_post_to, data=payload, headers=headers)
+	print(r.json())
 
 def construct_dict(file_name,file_type):
 	return {"type" : file_type,"data" : "","filename": file_name,"userId" : 169}
@@ -269,7 +270,7 @@ def storing_data(update, context):
 			os.remove(file_name)
 
 			request_dict = construct_dict(file_name, content_type)
-			make_post_request(request_dict)
+			r = make_post_request(request_dict)
 		except:
 			logging.exception("The file_name when the error happened is: {}".format(file_name))
 
