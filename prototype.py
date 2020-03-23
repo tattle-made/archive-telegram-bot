@@ -20,7 +20,6 @@ pp = pprint.PrettyPrinter(indent=4)
 load_dotenv()
 
 log('STARTING APP')
-print(os.environ.get('TGM_DB_NAME'))
 
 s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
 
@@ -28,7 +27,7 @@ s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_sec
 TOKEN = os.environ.get('ACCESS_TOKEN')
 PORT = int(os.environ.get('PORT', '8443'))
 
-logging.basicConfig(filename='telegram_bot_log.log',filemode='a',format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+# logging.basicConfig(filename='telegram_bot_log.log',filemode='a',format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # Calls for Database modification and reads start
 def insert_document(document,required_collection):
@@ -310,13 +309,13 @@ dispatcher.add_handler(restart_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(storing_data_handler)
 
-updater.start_webhook(listen="0.0.0.0",
-	port=PORT,
-	url_path=TOKEN)
+# updater.start_webhook(listen="0.0.0.0",
+# 	port=PORT,
+# 	url_path=TOKEN)
 
-updater.bot.set_webhook("https://services-server.tattle.co.in/" + TOKEN)
+# updater.bot.set_webhook("https://services-server.tattle.co.in/" + TOKEN)
 updater.start_polling()
 updater.idle()	
 
 
-log('STARTING SERVER')
+log('STARTING SERVER v1.0')
