@@ -280,7 +280,8 @@ def storing_data(update, context):
 		final_dict = process_media(relevant_section,final_dict,content_type,context,True)
 		insert_document(final_dict,'messages')
 
-	context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+	context.bot.send_message(chat_id=update.effective_chat.id, text='message archived')
+	# context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
 def stop_and_restart():
 	"""Gracefully stop the Updater and replace the current process with a new one"""
