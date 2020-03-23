@@ -21,3 +21,12 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: tattletech/archive-telegram-bot
         tag: stable
+
+    - name: Notify on Slack
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_MESSAGE: 'updated archive-telegram-bot in docker registry'
+        SLACK_TITLE: 'updater-registry-stable workflow complete'
+        SLACK_COLOR: '#020637'
+        SLACK_ICON: https://tattle-media.s3.amazonaws.com/monogram-dark.svg

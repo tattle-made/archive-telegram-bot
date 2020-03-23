@@ -30,10 +30,3 @@ jobs:
         SLACK_TITLE: 'update-registry-latest job complete'
         SLACK_COLOR: '#020637'
         SLACK_ICON: https://tattle-media.s3.amazonaws.com/monogram-dark.svg
-
-    - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.PAT_TOKEN }}
-        event-type: build-dev-application
-        repository: tattle-made/services-infrastructure
