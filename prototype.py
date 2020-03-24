@@ -295,6 +295,7 @@ def restart(update, context):
 try:
 	client = MongoClient("mongodb+srv://"+os.environ.get("TGM_DB_USERNAME")+":"+os.environ.get("TGM_DB_PASSWORD")+"@tattle-data-fkpmg.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE")
 	db = client[os.environ.get("TGM_DB_NAME")]
+
 except error_message:
 	print('error connecting to db')
 	print(error_message)
