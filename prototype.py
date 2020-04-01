@@ -1,7 +1,6 @@
 import os
 import sys
 import json 
-import boto3
 import requests
 import telegram
 import logging
@@ -14,6 +13,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 import pprint
 from logger import log, logError
+from tattle_helper import upload_file
 pp = pprint.PrettyPrinter(indent=4)
 
 #loads all environment variables
@@ -21,7 +21,7 @@ load_dotenv()
 
 log('STARTING APP')
 
-s3 = boto3.client("s3",aws_access_key_id=os.environ.get('S3_ACCESS_KEY'),aws_secret_access_key=os.environ.get('S3_SECRET_ACCESS_KEY'))
+
 
 
 TOKEN = os.environ.get('ACCESS_TOKEN')
@@ -109,7 +109,7 @@ def edit_message(message_json,final_dict,content_type,context):
 		file_name = str(message_json.message_id) + '.txt'
 		with open(file_name,'w') as open_file:
 			open_file.write(message_json['text'])
-		upload_file(s3,file_name)
+		upload_file(file_name)
 		os.remove(file_name)
 	
 		final_dict = process_text(message_json,final_dict,message_json['text'],False)
@@ -165,12 +165,6 @@ def process_text(message_json, final_dict,message_content,caption_flag):
 			final_dict['text'] = cleaned_message.strip()
 	return final_dict
 
-def upload_file(s3,file_name,acl="public-read"):
-	bucket_name = os.environ.get('TGM_BUCKET_NAME')
-	#opens file, reads it, and uploads it to the S3 bucket.
-	with open(file_name, 'rb') as data:
-		s3.upload_fileobj(data,bucket_name,file_name,ExtraArgs={"ACL": acl,"ContentType": file_name.split(".")[-1]})
-	
 	#just for testing
 	# BASE_URL = "http://archive-telegram-bot.tattle.co.in.s3.amazonaws.com/"
 	# print("{}{}".format(BASE_URL, file_name))
@@ -214,7 +208,8 @@ def process_media(message_json,final_dict,content_type,context,creation_flag):
 			new_file = context.bot.get_file(file_id)
 			new_file.download(file_name) #downloads the file
 			final_dict['file_name'] = file_name 
-			upload_file(s3,file_name) #uploads to S3
+			file_url = upload_file(file_name) #uploads to S3
+			final_dict['s3_url'] = file_url
 			os.remove(file_name) #removes it from local runtime
 
 			request_dict = construct_dict(file_name,post_request_type)
@@ -238,7 +233,7 @@ def storing_data(update, context):
 	#some general data appended to each dict
 	final_dict['message_id'] = relevant_section['message_id']
 	final_dict['date'] = relevant_section['date']
-	final_dict['from'] = {'id':relevant_section.from_user.id,'type':relevant_section.chat.type,'first_name':relevant_section.from_user.first_name,'last_name':relevant_section.from_user.last_name,'username':relevant_section.from_user.username,'is_bot':relevant_section.from_user.is_bot}
+	# final_dict['from'] = {'id':relevant_section.from_user.id,'type':relevant_section.chat.type,'first_name':relevant_section.from_user.first_name,'last_name':relevant_section.from_user.last_name,'username':relevant_section.from_user.username,'is_bot':relevant_section.from_user.is_bot}
 	content_type = determine_type(relevant_section)
 	final_dict['content_type'] = content_type
 
@@ -265,7 +260,8 @@ def storing_data(update, context):
 			file_name = str(relevant_section.message_id) + '.txt'
 			with open(file_name,'w') as open_file:
 				open_file.write(relevant_section['text'])
-			upload_file(s3,file_name)
+			file_url = upload_file(file_name)
+			final_dict['s3_url'] = file_url
 			os.remove(file_name)
 
 			request_dict = construct_dict(file_name, content_type)
